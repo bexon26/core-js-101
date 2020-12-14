@@ -438,8 +438,31 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  *    ]
  */
-function sortCitiesArray(/* arr */) {
-  throw new Error('Not implemented');
+function sortCitiesArray(arr) {
+  const result = [];
+  const set = new Set();
+  arr.map((el) => {
+    set.add(el.country);
+    return el;
+  });
+  const counryArr = [...set].sort();
+  counryArr.map((el) => {
+    const result1 = arr.filter((elem) => (elem.country === el)).sort((a, b) => {
+      if (a.city < b.city) {
+        return -1;
+      }
+      if (b.city > a.city) {
+        return 1;
+      }
+      return 0;
+    });
+    result1.map((el1) => {
+      result.push(el1);
+      return el1;
+    });
+    return result1;
+  });
+  return result;
 }
 
 /**
@@ -581,8 +604,13 @@ function selectMany(arr, childrenSelector) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, indexes) {
+  let item = arr;
+  indexes.map((el) => {
+    item = item[el];
+    return el;
+  });
+  return item;
 }
 
 
