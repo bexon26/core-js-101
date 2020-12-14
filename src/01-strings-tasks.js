@@ -95,8 +95,9 @@ function getFirstChar(value) {
  *   'cat'              => 'cat'
  *   '\tHello, World! ' => 'Hello, World!'
  */
-function removeLeadingAndTrailingWhitespaces(/* value */) {
-  throw new Error('Not implemented');
+function removeLeadingAndTrailingWhitespaces(value) {
+  const result = value.trim();
+  return result;
 }
 
 /**
@@ -130,8 +131,9 @@ function repeatString(value, count) {
  *   'I like legends', 'end' => 'I like legs',
  *   'ABABAB','BA' => 'ABAB'
  */
-function removeFirstOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeFirstOccurrences(str, value) {
+  const mass = str.split(value).splice(1).join(value);
+  return str.split(value)[0] + mass;
 }
 
 /**
@@ -160,9 +162,10 @@ function unbracketTag(str) {
  *   'Thunderstruck' => 'THUNDERSTRUCK'
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
-function convertToUpperCase(/* str */) {
-  throw new Error('Not implemented');
+function convertToUpperCase(str) {
+  return str.toUpperCase();
 }
+
 
 /**
  * Extracts e-mails from single string with e-mails list delimeted by semicolons
@@ -179,8 +182,8 @@ function convertToUpperCase(/* str */) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  return str.split(';');
 }
 
 /**
@@ -261,8 +264,18 @@ function getRectangleString(width, height) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const mass = 'abcdefghijklmnopqrstuvwxyz';
+  return str.split('').map((el) => {
+    const code = mass.indexOf(el.toLowerCase()) + 13;
+    if (el === ' ' || el === '?' || el === '!') {
+      return el;
+    }
+    if (el === el.toUpperCase()) {
+      return (code >= 26 ? mass[code - 26] : mass[code]).toUpperCase();
+    }
+    return (code >= 26 ? mass[code - 26] : mass[code]);
+  }).join('');
 }
 
 /**
@@ -278,8 +291,14 @@ function encodeToRot13(/* str */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  let str = false;
+  if (typeof value === 'object') {
+    if (value !== null && value.length > 0) {
+      str = true;
+    }
+  }
+  return typeof value === 'string' || str;
 }
 
 
